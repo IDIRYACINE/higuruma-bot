@@ -1,0 +1,11 @@
+{
+  "name": "higuruma-bot",
+  "version": "1.0.0",
+  "description": "discord bot for moderating discussions and debates",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Idir Yacine",
+  "license": "ISC"
+}
