@@ -1,8 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 export const data =  new SlashCommandBuilder()
-		.setName('verdict')
-		.setDescription('Judge anounces the final verdict')
+		.setName('evidance')
+		.setDescription('Replies with a pre-registered evidance,if the session is recording you may request a clip')
 	
 export const execute = async (interaction) => {
 	await interaction.reply('Pong!');
