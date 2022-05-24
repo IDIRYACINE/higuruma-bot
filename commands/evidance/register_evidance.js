@@ -1,8 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { commandsData } from '../utils/data';
 
 export const data =  new SlashCommandBuilder()
-		.setName('register-evidance')
-		.setDescription('Register evidance to be used in a session')
+		.setName(commandsData.register_evidance.name)
+		.setDescription(commandsData.register_evidance.description)
 	
 export const execute = async (interaction) => {
 	await interaction.reply('Pong!');

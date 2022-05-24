@@ -1,7 +1,7 @@
 /*
 
 This file is treated as a script , it have no effects on the actual bot/server
-
+use npm run deploy to deploy the commands into discord 
 */
 
 import { join } from 'node:path';
@@ -18,7 +18,8 @@ function registerCommand(command){
 	commands.push(command.data.toJSON())
 }
 
-getAllFilesRecusrsive(commandsPath, registerCommand)
+// ignore the ide unacessary await !
+await getAllFilesRecusrsive(commandsPath, registerCommand)
 
   
 const rest = new REST({ version: '9' }).setToken(config.token);

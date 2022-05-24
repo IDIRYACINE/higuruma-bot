@@ -1,8 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { commandsData } from '../utils/data';
 
 export const data =  new SlashCommandBuilder()
-		.setName('interupt')
-		.setDescription('Demand permission from the current speaker to interupt him')
+		.setName(commandsData.unmute.name)
+		.setDescription(commandsData.unmute.description)
 	
 export const execute = async (interaction) => {
 	await interaction.reply('Pong!');

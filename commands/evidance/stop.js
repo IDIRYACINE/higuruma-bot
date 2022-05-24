@@ -1,8 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { commandsData } from '../utils/data';
 
 export const data =  new SlashCommandBuilder()
-		.setName('record-stop')
-		.setDescription('Stop recording session and send a copy for all participants')
+		.setName(commandsData.stop.name)
+		.setDescription(commandsData.stop.description)
 	
 export const execute = async (interaction) => {
 	await interaction.reply('Pong!');

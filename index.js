@@ -2,7 +2,7 @@
 import { Client, Intents } from 'discord.js';
 import config from './config.json' assert {type:"json"};
 import path from 'node:path';
-import {getAllFiles} from './handlers/file_loader'
+import {getAllFiles} from './handlers/file_loader.js'
 
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });

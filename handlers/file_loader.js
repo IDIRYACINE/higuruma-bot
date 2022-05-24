@@ -7,7 +7,7 @@ import {readdirSync} from 'node:fs';
  * @returns {boolean}
  */
 function isDirectoryExecluded(subdirectoryName){
-    isExcluded = excludedSubDirectories[subdirectoryName] === undefined
+    const isExcluded = excludedSubDirectories[subdirectoryName] != undefined
     return isExcluded
 }
 
@@ -21,13 +21,12 @@ const excludedSubDirectories = {utils : 'utils'}
  *  @returns {void}
 */
 export async function getAllFilesRecusrsive(dirPath, callback) {
-    
 	const subdirectories = readdirSync(dirPath)
     let files = []
 
     subdirectories.forEach(
         (dir)=> {
-            if(!isDirectoryExecluded){
+            if(!isDirectoryExecluded(dir)){
                 const filePath = `${dirPath}/${dir}`
                 const subFiles = readdirSync(filePath).map((file)=>  {return `${filePath}/${file}`})
                 files = files.concat(subFiles)
@@ -53,7 +52,7 @@ export async function getAllFilesRecusrsive(dirPath, callback) {
 export async function getAllFiles(dirPath, callback) {
 	const files = readdirSync(dirPath).filter(file => file.endsWith(".js"));
     for (let file of files) {
-        const content = (await import(file)).default;
+        const content = (await import(`${dirPath}/${file}`)).default;
         callback(content) 
     }
     

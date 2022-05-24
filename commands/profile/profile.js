@@ -1,8 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { commandsData } from '../utils/data';
 
 export const data =  new SlashCommandBuilder()
-		.setName('profile')
-		.setDescription('Replies with informations about the user overall ratings,sessions,topics...etc')
+		.setName(commandsData.profile.name)
+		.setDescription(commandsData.profile.description)
 	
 export const execute = async (interaction) => {
 	await interaction.reply('Pong!');

@@ -1,8 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { commandsData } from '../utils/data';
 
 export const data =  new SlashCommandBuilder()
-		.setName('reputation')
-		.setDescription('Replies with the user reputation')
+		.setName(commandsData.reputation.name)
+		.setDescription(commandsData.reputation.description)
 	
 export const execute = async (interaction) => {
 	await interaction.reply('Pong!');

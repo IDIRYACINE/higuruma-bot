@@ -1,8 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { commandsData } from '../utils/data';
 
 export const data =  new SlashCommandBuilder()
-		.setName('record-resume')
-		.setDescription('Resume recording session')
+		.setName(commandsData.resume.name)
+		.setDescription(commandsData.resume.description)
 	
 export const execute = async (interaction) => {
 	await interaction.reply('Pong!');
