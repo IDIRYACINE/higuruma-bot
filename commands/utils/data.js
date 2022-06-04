@@ -5,11 +5,32 @@ export const replies = {
     sessionNotFound : "There is no session taking place",
     notMaster : "You are not the session master",
     speakerAdded : "Registred a new speaker",
-    notInVoiceChannel : "Join a voice channel first !"
+    notInVoiceChannel : "Join a voice channel first !",
+    sessionStart  : "Started the session",
+    registredSession : "Registred the session",
+    notInSession : "I am not in a session",
+    sessionEnd : "This session is closed",
+    sessionAlreadyStarted : "Session already started"
 }
 
 export const sessions = {
-    speakerId : "speakerId"
+    speakerId : "speakerId",
+    publicSession : {
+        name : "public",
+        description : "if false then anyone who joins will be automatically defaned"
+    },
+    speakerTimeLimit : {
+        name : "time-limit", 
+        description : "speaker timeLimit in minutes"
+    },
+    speakersPermission : {
+        name: "speakers-open", 
+        description : "if set to true only the session master can add the speakers"
+    },
+    speakersCount : {
+        name : "count", 
+        description : "speaker timeLimit in minutes"
+    }
 }
 
 export const commandsData = {
@@ -36,6 +57,10 @@ export const commandsData = {
     start_session : {
         name :"session-start",
         description : "Start the session"
+    },
+    end_session : {
+        name :"session-end",
+        description : "End the session"
     },
     rules : {
         name :"rules",
@@ -83,7 +108,8 @@ export const commandsData = {
     },
     resume:{
         name: "resume",
-        description : "Resume recording the session"},
+        description : "Resume recording the session"
+    },
     register_evidance:{
         name: "evidance-register",
         description : "Regsiter an evidance for usage during the session"

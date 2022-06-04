@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import {isAlreadyInSession,registerSession} from '../../functions/voice/voice_manager.js'
+import {registerSession} from '../../functions/voice/voice_manager.js'
 import {commandsData, replies , sessions} from '../utils/data.js'
-import  { joinVoiceChannel } from '@discordjs/voice';
+import  { joinVoiceChannel ,getVoiceConnection} from '@discordjs/voice';
+import { getBooleanOption , getIntegerOption } from '../utils/utility.js';
 
 /*
 	Start A session , each session has public/private status
@@ -14,41 +15,65 @@ import  { joinVoiceChannel } from '@discordjs/voice';
 export const data =  new SlashCommandBuilder()
 		.setName(commandsData.session.name)
 		.setDescription(commandsData.session.description)
+		.addBooleanOption(
+			option => 
+			option.setName(sessions.publicSession.name)
+			.setDescription(sessions.publicSession.description)
+		)
+		.addIntegerOption(
+			option => 
+			option.setName(sessions.speakersCount.name)
+			.setDescription(sessions.speakersCount.description)
+		)
+		.addBooleanOption(
+			option => 
+			option.setName(sessions.speakersPermission.name)
+			.setDescription(sessions.speakersPermission.description)
+		)
+		.addIntegerOption(
+			option => 
+			option.setName(sessions.speakerTimeLimit.name)
+			.setDescription(sessions.speakerTimeLimit.description)
+		)
 		
 	
 
 export const execute = async (interaction) => {
 
 	const channel = interaction.member.voice.channel
-	if(isAlreadyInSession(channel.id)){
+	const guildId = interaction.guildId
+	const master = interaction.member 
+
+	if(getVoiceConnection(guildId)!= null || undefined){
 		interaction.reply(replies.isAlreadyInSession)
 		return
 	}
 
-	const sessionType = interaction.options.getString(sessions.name)
-
 	const connection = 
-		joinVoiceChannel(
-			{
-				channelId : channel.id,
-				guildId : interaction.guildId,
-				adapterCreator: interaction.guild.voiceAdapterCreator,
-				selfDeaf : false,
-				selfMute : false
-			}
-		)
+	joinVoiceChannel(
+		{
+			channelId : channel.id,
+			guildId : interaction.guildId,
+			adapterCreator: interaction.guild.voiceAdapterCreator,
+			selfDeaf : false,
+			selfMute : false
+		}
+	)
 
-	connection.on("stateChange",(oldState,newState)=>{
+	registerSession(
+		connection,master,
+		getBooleanOption(sessions.publicSession,interaction),
+		getIntegerOption(sessions.speakersCount,interaction),
+		getBooleanOption(sessions.speakersPermission,interaction),
+		getIntegerOption(sessions.speakerTimeLimit,interaction)
+	)
+
+	/*connection.on("stateChange",(oldState,newState)=>{
 		console.log(`${oldState} => ${newState}`)
 	})	
+	*/
 
-	registerSession(connection,sessionType)
-
-	for (let [snowflake, guildMember] of channel.members) {
-		console.log(`${guildMember.displayName} (${guildMember.id})`);
-	}
-
-	await interaction.reply("Trial")
+	await interaction.reply(replies.registredSession)
 	
 }
 

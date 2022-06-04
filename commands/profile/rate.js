@@ -2,8 +2,8 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { commandsData } from '../utils/data.js';
 
 export const data =  new SlashCommandBuilder()
-		.setName(commandsData.profile.name)
-		.setDescription(commandsData.profile.description)
+		.setName(commandsData.rate.name)
+		.setDescription(commandsData.rate.description)
 	
 export const execute = async (interaction) => {
 	await interaction.reply('Pong!');

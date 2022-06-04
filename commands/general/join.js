@@ -16,9 +16,8 @@ export const data =  new SlashCommandBuilder()
 		
 export const execute = async (interaction) => {
 	
-	const channelId = interaction.member.voice.channel.id
-	console.log(channelId)	
-	const session = getSession(channelId)
+	const guildId = interaction.guildId	
+	const session = getSession(guildId)
 	
 	if(session == undefined){
 		await interaction.reply(replies.sessionNotFound)
