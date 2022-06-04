@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { registerSpeaker, isSessionMaster} from '../../functions/voice/voice_manager';
-import { commandsData, replies } from '../utils/data';
+import { registerSpeaker, isSessionMaster} from '../../functions/voice/voice_manager.js';
+import { commandsData,replies } from '../utils/data.js';
 /*
 	invite a user as a speaker , only the master of the session can use this command
 

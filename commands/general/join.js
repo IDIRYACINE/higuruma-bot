@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { getSession } from '../../functions/voice/voice_manager.js';
+import { getSession,joinSpeakers } from '../../functions/voice/voice_manager.js';
 import { replies,commandsData } from '../utils/data.js';
 
 /*
@@ -17,7 +17,7 @@ export const data =  new SlashCommandBuilder()
 export const execute = async (interaction) => {
 	
 	const channelId = interaction.member.voice.channel.id
-	
+	console.log(channelId)	
 	const session = getSession(channelId)
 	
 	if(session == undefined){
@@ -25,8 +25,9 @@ export const execute = async (interaction) => {
 		return
 	}
 
+	joinSpeakers(session,interaction.member)
 
-	interaction.reply(replies.speakerAdded)
+	await interaction.reply(replies.speakerAdded)
 
 }
 

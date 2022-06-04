@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { commandsData } from '../utils/data';
+import { commandsData } from '../utils/data.js';
 
 /*
 	print the current session rules , max speakers 

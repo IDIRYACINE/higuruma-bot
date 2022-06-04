@@ -14,12 +14,7 @@ import  { joinVoiceChannel } from '@discordjs/voice';
 export const data =  new SlashCommandBuilder()
 		.setName(commandsData.session.name)
 		.setDescription(commandsData.session.description)
-		.addStringOption(option => 
-			option.setName(sessions.name)
-			.setDescription("Session type")
-			.setRequired(true)
-			.setChoices(...sessions.values)
-			)
+		
 	
 
 export const execute = async (interaction) => {

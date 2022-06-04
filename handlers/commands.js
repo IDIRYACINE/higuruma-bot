@@ -1,6 +1,7 @@
 import { getAllFilesRecusrsive } from '../handlers/file_loader.js';
+import { join} from 'node:path';
 
-const  commands = new Collection();
+const commands = new Map();
 
 const commandsPath = join(process.cwd(), 'commands');
 

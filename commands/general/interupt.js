@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { commandsData, replies } from '../utils/data';
+import { commandsData } from '../utils/data.js';
 
 
 /*

@@ -1,5 +1,5 @@
 
-const voiceConnections = {}
+let voiceConnections = {}
 
 export function isAlreadyInSession(voiceChannelId){
     return voiceConnections[voiceChannelId] != undefined
@@ -9,9 +9,19 @@ export function isAlreadyInSession(voiceChannelId){
     2- vary session model , use session type to decide how to deal with the options
 */
 
-// consider using a map instead of an array , O(1) access time instead of filtering through the array? O(n)
-export function registerSession(voiceChannel){
-    voiceConnections[voiceChannel.id] = {
+/**  consider using a map instead of an array , O(1) access time instead of filtering through the array? O(n)
+ * @param {VoiceChannel} channel 
+ * 
+ */
+export function registerSession({
+    channel ,
+    publicSession = true,
+    speakersCount = 2 ,
+    speakerPermissions = false,
+    speakerTimeLimit = 5 ,
+    }){
+    
+    voiceConnections[voiceChannel.joinConfig.channelId] = {
         // master is the one who started the session
         master : "member",
         channel : voiceChannel,
@@ -26,7 +36,7 @@ export function registerSession(voiceChannel){
         // a seperation between participants (listeners and active speakers)
         // anyone who joins the voice channel and isn't a speaker is automatically a participant
         participants : [],
-        speaker : "member",
+        speaker : "memberObject",
         // the max allowed speakers
         speakersLimit : 2,
         //if set to true only the master can invite the speakers
@@ -36,6 +46,7 @@ export function registerSession(voiceChannel){
         speakerTimeLimit : 5,
 
     }
+    
 }
 
 export function unregisterSession(voiceChannel){
@@ -43,6 +54,7 @@ export function unregisterSession(voiceChannel){
 }
 
 export function getSession(voiceChannelId){
+    console.log(voiceConnections)
     return voiceConnections[voiceChannelId]
 }
 

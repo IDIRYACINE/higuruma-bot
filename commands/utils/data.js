@@ -4,7 +4,8 @@ export const replies = {
     isAlreadyInSession : "I am already in a session ",
     sessionNotFound : "There is no session taking place",
     notMaster : "You are not the session master",
-    speakerAdded : "Registred a new speaker"
+    speakerAdded : "Registred a new speaker",
+    notInVoiceChannel : "Join a voice channel first !"
 }
 
 export const sessions = {
