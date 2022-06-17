@@ -43,9 +43,14 @@ export const execute = async (interaction) => {
 	const channel = interaction.member.voice.channel
 	const guildId = interaction.guildId
 	const master = interaction.member 
-
+	
 	if(getVoiceConnection(guildId)!= null || undefined){
 		interaction.reply(replies.isAlreadyInSession)
+		return
+	}
+
+	if(channel == null){
+		interaction.reply(replies.notInVoiceChannel)
 		return
 	}
 
@@ -67,12 +72,7 @@ export const execute = async (interaction) => {
 		getBooleanOption(sessions.speakersPermission,interaction),
 		getIntegerOption(sessions.speakerTimeLimit,interaction)
 	)
-
-	/*connection.on("stateChange",(oldState,newState)=>{
-		console.log(`${oldState} => ${newState}`)
-	})	
-	*/
-
+	
 	await interaction.reply(replies.registredSession)
 	
 }

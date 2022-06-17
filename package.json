@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "unitTests" : "jest tests/units",
+    "integrationTests" : "jest test/integration",
     "deploy": "node handlers/deploy_commands.js",
     "start": "nodemon ."
   },
@@ -13,6 +15,7 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.16.0",
+    "jest": "^28.1.1",
     "nodemon": "^2.0.16"
   },
   "dependencies": {
