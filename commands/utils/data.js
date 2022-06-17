@@ -10,7 +10,10 @@ export const replies = {
     registredSession : "Registred the session",
     notInSession : "I am not in a session",
     sessionEnd : "This session is closed",
-    sessionAlreadyStarted : "Session already started"
+    sessionAlreadyStarted : "Session already started",
+    unmuted : "You have been unmuted",
+    registredEvidance : "The evidance was registred",
+    evidanceNotFound : "The specified evidance name was not found"
 
 }
 
@@ -89,7 +92,7 @@ export const commandsData = {
     },
     evidance :{
         name: "evidance",
-        description : "Reply with a pre-registred evidance"
+        description : "Reply with the specified evidance , if not specified all registred evidances will be replied"
     },
     testimony :{
         name: "testimony",
@@ -113,7 +116,28 @@ export const commandsData = {
     },
     register_evidance:{
         name: "evidance-register",
-        description : "Regsiter an evidance for usage during the session"
+        description : "Regsiter an evidance for usage during the session",
+        options : {
+            evidanceName : {
+                name : "evidance-name",
+                description : "Register the evidance under the issued name"
+            }
+            ,
+            evidanceType : {
+                name : "evidance-type",
+                description : "Register the evidance under the issued type",
+                values : [ 
+                    {name:"Image",value :"Image"} ,
+                    {name:"Article",value : "Article"} ,
+                    {name:"Vocal",value:"Vocal"},
+                    {name:"Video",value:"Video"}
+                ]
+            },
+            evidance : {
+                name : "evidance-content",
+                description : "Register the evidance content"
+            }
+        }
     }
 
 }

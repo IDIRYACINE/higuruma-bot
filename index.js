@@ -5,7 +5,7 @@ import path from 'node:path';
 import {getAllFiles} from './handlers/file_loader.js'
 
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_VOICE_STATES] });
 
 
 const eventsPath = path.join(process.cwd(), 'events');

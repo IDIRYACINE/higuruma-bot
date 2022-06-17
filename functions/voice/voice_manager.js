@@ -36,13 +36,18 @@ export function registerSession(
         // a different solution would be to allow a specific role
         // can solve the judge situation by registring it as a role
         public : publicSession,
+        // once started don't allow modifying evidances
+        started : false,
         // queque data structure , after time limit push the active member to the back
         // or if the speaker says he is done 
         // to join speakers use join command , or get invited 
         speakers : [],
+        // when a new user join we use this to identify him 
+        // if member id is undefined then he is not a speaker O(1) complexity
+        speakersId : {},
         // a seperation between participants (listeners and active speakers)
         // anyone who joins the voice channel and isn't a speaker is automatically a participant
-        participants : [],
+        participants : {},
         //member object
         speaker : null,
         // the max allowed speakers
@@ -51,6 +56,9 @@ export function registerSession(
         // is there a way to setup a callbak when the session starts as builder pattern ?
         // without the need to check for the session options everyTime , time limits in ms ?s?
         speakerTimeLimit : speakerTimeLimit,
+        // registred evidance of this session
+        // {memberId : {evidanceName : evidance , evidanceType : Vocal,Image,Article}}
+        evidances : {}
 
     }
     
@@ -62,6 +70,14 @@ export function unregisterSession(guildId){
 
 export function getSession(guildId){
     return voiceConnections[guildId]
+}
+
+export function isThereAsession(guildId){
+    return getSession(guildId) != undefined
+}
+
+export function startSession(guildId){
+    voiceConnections[guildId].started = true
 }
 
 function reachedSpeakersLimit(session){
@@ -82,6 +98,8 @@ export function registerSpeaker(guildId,member){
 
     if(!reachedSpeakersLimit(session)){
         session.speakers.push(member)
+        session.speakersId[member.id] = member.id
+        delete session.participants[member.id]
     }
 }
 
@@ -89,3 +107,48 @@ export function isSessionMaster(member){
     const session = getSession(member.guildId)
     return session.master.id == member.id
 }
+
+export function registerParticipant(member){
+    const session = getSession(member.guild.id)
+    session.participants[member.id] = member
+    member.voice.setMute(true)
+}
+
+export function isSpeaker(session,member){
+    return session.speakersId[member.id] != undefined
+}
+
+/**
+ * if an evidance with a similiar name already exist and the member owns it,
+ * this will override it's content
+ * @returns {boolean} depending on if the evidance was successfully registred 
+ */
+export function registerEvidance(member,evidance){
+    const session = getSession(member.guild.id)
+    if(session.evidances[evidance.name] != undefined && evidance.owner != member.id){
+        return false 
+    }
+    session.evidances[evidance.name] = evidance 
+    return true
+}
+
+export function fetchEvidance(guildId,evidanceName){
+    const session = getSession(guildId)
+    return session.evidances[evidanceName]
+}
+
+/**
+ * @returns {boolean} true if the evidance was unregistred and false if 
+ * the evidance doesn't exist or the member doesn't own the evidance
+ */
+export function unregisterEvidance(member,evidanceName){
+    const session = getSession(member.guild.id)
+    const evidance = session.evidances[evidanceName]
+    if (evidance==undefined || evidance.owner != member.id){
+        return false 
+    }
+    delete session.evidances[evidanceName]
+
+    return true
+}
+
